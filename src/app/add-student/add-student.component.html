@@ -1,22 +1,37 @@
-<div class="vh-100 vw-100   flex-row justify-content-center align-items-center">
-  <form class="w-50 mt-5 " [formGroup]="formGroup" (ngSubmit)="addStudent()" >
+<div class="vh-100 vw-100 flex-row justify-content-center align-items-center">
+  <form class="w-50 mt-5" [formGroup]="formGroup" (ngSubmit)="addStudent()">
     <div class="row">
       <div class="col">
         <input type="text" class="form-control" formControlName="name" placeholder="Name">
+        <div *ngIf="formGroup.get('name')?.invalid && formGroup.get('name')?.touched" class="text-danger">
+          Name is required and should not contain numbers.
+        </div>
       </div>
       <div class="col">
         <input type="number" class="form-control" formControlName="age" placeholder="Age">
+        <div *ngIf="formGroup.get('age')?.invalid && formGroup.get('age')?.touched" class="text-danger">
+          Age is required and should be a whole number.
+        </div>
       </div>
     </div>
-   <div class="row mt-5">
-     <div class="col">
-       <input type="text" class="form-control" formControlName="gender" placeholder="Gender">
-     </div>
-
-     <div class="col">
-       <input type="text" class="form-control" formControlName="sector" placeholder="Sector">
-     </div>
-   </div>
+    <div class="row mt-5">
+      <div class="col">
+        <label>Gender:</label>
+        <div>
+          <input type="radio" formControlName="gender" value="M"> Male
+          <input type="radio" formControlName="gender" value="F"> Female
+        </div>
+        <div *ngIf="formGroup.get('gender')?.invalid && formGroup.get('gender')?.touched" class="text-danger">
+          Gender is required.
+        </div>
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" formControlName="sector" placeholder="Sector">
+        <div *ngIf="formGroup.get('sector')?.invalid && formGroup.get('sector')?.touched" class="text-danger">
+          Sector is required.
+        </div>
+      </div>
+    </div>
     <button type="submit" class="btn btn-primary mt-5">Add</button>
   </form>
 </div>

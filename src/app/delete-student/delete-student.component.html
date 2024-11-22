@@ -1,0 +1,13 @@
+<div class="vh-100 vw-100 flex-row justify-content-center align-items-center">
+  <form class="w-50 mt-5" [formGroup]="formGroup" (ngSubmit)="deleteStudent()">
+    <div class="row">
+      <div class="col">
+        <input type="number" class="form-control" formControlName="id" placeholder="Student ID">
+        <div *ngIf="formGroup.get('id')?.invalid && formGroup.get('id')?.touched" class="text-danger">
+          ID is required and should be a whole number.
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-danger mt-5">Delete</button>
+  </form>
+</div>

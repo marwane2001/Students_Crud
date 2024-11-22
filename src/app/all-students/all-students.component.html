@@ -11,15 +11,14 @@
     </thead>
     <tbody>
     <tr *ngFor="let student of students">
-      <th scope="row"> {{student.id}} </th>
-      <td> {{student.name}} </td>
-      <td> {{student.age}} </td>
-      <td> {{student.gender}} </td>
-      <td> {{student.sector}} </td>
+      <th scope="row">{{student.id}}</th>
+      <td>{{student.name}}</td>
+      <td>{{student.age}}</td>
+      <td>{{student.gender}}</td>
+      <td>{{student.sector}}</td>
       <td><button class="btn btn-danger" (click)="deleteStudent(student.id)">Delete</button></td>
     </tr>
-
-
     </tbody>
   </table>
+  <button class="btn btn-danger mt-3" routerLink="/deleteStudent">Delete Student by ID</button>
 </div>
