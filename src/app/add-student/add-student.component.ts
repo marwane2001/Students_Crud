@@ -11,23 +11,23 @@ import {StudentService} from '../services/student.service';
   styleUrl: './add-student.component.css'
 })
 export class AddStudentComponent {
-formGroup!:FormGroup;
+  formGroup!:FormGroup;
 
-constructor(private router:Router ,private serviceStudent:StudentService) {
-  this.formGroup=new FormGroup(
-    {
-      name:new FormControl(''),
-      age:new FormControl(''),
-      gender:new FormControl(''),
-      sector:new FormControl(''),
-    }
-  )
-}
+  constructor(private router:Router ,private serviceStudent:StudentService) {
+    this.formGroup=new FormGroup(
+      {
+        name:new FormControl(''),
+        age:new FormControl(''),
+        gender:new FormControl(''),
+        sector:new FormControl(''),
+      }
+    )
+  }
 
   addStudent(){
-this.serviceStudent.addStudent(this.formGroup.value).subscribe(next => {
-  this.router.navigate(['/allStudents']);
-});
+    this.serviceStudent.addStudent(this.formGroup.value).subscribe(next => {
+      this.router.navigate(['/allStudents']);
+    });
 
   }
 }
