@@ -1,35 +1,33 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Student } from '../Student';
-import { map, switchMap } from 'rxjs/operators';
+import { Component } from '@angular/core';
+import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {Router} from '@angular/router';
+import {StudentService} from '../services/student.service';
 
-@Injectable({
-  providedIn: 'root'
+@Component({
+  selector: 'app-add-student',
+  standalone:true,
+  imports: [ReactiveFormsModule],
+  templateUrl: './add-student.component.html',
+  styleUrl: './add-student.component.css'
 })
-export class StudentService {
-  url: string = "http://localhost:8888/students";
+export class AddStudentComponent {
+formGroup!:FormGroup;
 
-  constructor(private http: HttpClient) {}
+constructor(private router:Router ,private serviceStudent:StudentService) {
+  this.formGroup=new FormGroup(
+    {
+      name:new FormControl(''),
+      age:new FormControl(''),
+      gender:new FormControl(''),
+      sector:new FormControl(''),
+    }
+  )
+}
 
-  public allStudents() {
-    return this.http.get<Student[]>(this.url);
-  }
+  addStudent(){
+this.serviceStudent.addStudent(this.formGroup.value).subscribe(next => {
+  this.router.navigate(['/allStudents']);
+});
 
-  public addStudent(student: Student) {
-    return this.http.get<Student[]>(this.url).pipe(
-      map(students => {
-        const numericIds = students
-          .map(s => s.id)
-          .filter(id => !isNaN(id));
-        const maxId = numericIds.length > 0 ? Math.max(...numericIds) : 0;
-        student.id = maxId + 1;
-        return student;
-      }),
-      switchMap(newStudent => this.http.post(this.url, newStudent))
-    );
-  }
-
-  public deleteStudent(id: number) {
-    return this.http.delete(this.url + "/" + id);
   }
 }
