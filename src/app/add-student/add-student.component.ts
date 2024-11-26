@@ -26,7 +26,7 @@ export class AddStudentComponent {
   addStudent() {
     if (this.formGroup.valid) {
       this.serviceStudent.addStudent(this.formGroup.value).subscribe(() => {
-        this.router.navigate(['/allStudents']);
+        this.router.navigate(['/']);
       });
     }
   }

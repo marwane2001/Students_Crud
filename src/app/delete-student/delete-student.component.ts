@@ -23,8 +23,14 @@ export class DeleteStudentComponent {
   deleteStudent() {
     if (this.formGroup.valid) {
       const id = this.formGroup.value.id;
-      this.studentService.deleteStudent(id).subscribe(() => {
-        this.router.navigate(['/']);
+      this.studentService.deleteStudent(id).subscribe({
+        next: () => {
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          console.error('Error deleting student:', err);
+          this.router.navigate(['/']);
+        }
       });
     }
   }
